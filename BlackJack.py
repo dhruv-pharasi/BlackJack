@@ -4,13 +4,13 @@ import os
 
 def setup():
     ans = input(
-        "\nWould you like to play a game of BlackJack? Type 'y' to play, 'n' to end game.\n")
+        "\nWould you like to play a game of Blackjack? Type 'y' to play, 'n' to end game.\n")
     if ans == 'y':
         read_art_file()
         start_game()
         return
     elif ans == 'n':
-        print("Thank you for playing BlackJack.\n")
+        print("Thank you for playing Blackjack.\n")
         return
     else:
         print("Invalid input\n")
