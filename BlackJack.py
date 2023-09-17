@@ -3,13 +3,15 @@ import os
 
 
 def setup():
+    '''Sets up the game'''
     ans = input(
-        "\nWould you like to play a game of Blackjack? Type 'y' to play, 'n' to end game.\n")
-    if ans == 'y':
+        "\nWould you like to play a game of Blackjack? Type 'y' to play, 'n' to exit.\n")
+    if ans == "y":
+        os.system("clear")
         read_art_file()
         start_game()
         return
-    elif ans == 'n':
+    elif ans == "n":
         print("Thank you for playing Blackjack.\n")
         return
     else:
@@ -27,20 +29,29 @@ def start_game():
     player_cards = []
 
     # Drawing initial cards
-    draw_card(player_cards, cards)
-    draw_card(player_cards, cards)
-    draw_card(dealer_cards, cards)
+    for _ in range(2):
+        draw_card(player_cards, cards)
+        draw_card(dealer_cards, cards)
 
     print(
         f"\tYour cards: {player_cards} | Your current score: {sum(player_cards)}")
     print(f"\tDealer's first card: {dealer_cards[0]}\n")
 
     while True:
-        ans = input("Type 'd' to draw another card, 'r' to reveal cards\n")
+        ans = input("Type 'd' to draw another card, 'r' to reveal cards.\n")
 
-        if ans == 'd':
+        if ans == "d":
             draw_card(player_cards, cards)  # Player draws card
             draw_card(dealer_cards, cards)  # Dealer draws card
+
+            # Ace can be 1 or 11, and sum cannot exceed 21 because of Ace
+            if 11 in player_cards and sum(player_cards) > 21:
+                player_cards.remove(11)
+                player_cards.append(1)
+
+            if 11 in dealer_cards and sum(dealer_cards) > 21:
+                dealer_cards.remove(11)
+                dealer_cards.append(1)
 
             # Sum of either can't exceed 21
             if sum(player_cards) > 21 or sum(dealer_cards) > 21:
@@ -50,14 +61,9 @@ def start_game():
                 print(
                     f"\tDealer's final cards: {dealer_cards} | Dealer's final score: {sum(dealer_cards)}")
 
-                if sum(player_cards) > 21 and sum(dealer_cards) > 21:
-                    print("Its a draw!")
-                elif sum(player_cards) > 21:
-                    print("You lose!")
-                elif sum(dealer_cards) > 21:
-                    print("You win!")
-
+                score_checker(player_cards, dealer_cards)
                 setup()
+
                 break
 
             else:
@@ -65,7 +71,7 @@ def start_game():
                     f"\tYour cards: {player_cards} | Your current score: {sum(player_cards)}")
                 print(f"\tDealer's first card: {dealer_cards[0]}\n")
 
-        elif ans == 'r':
+        elif ans == "r":
             print(
                 f"\tYour final cards: {player_cards} | Your final score: {sum(player_cards)}")
             draw_dealer_cards(dealer_cards, cards)
@@ -92,10 +98,18 @@ def draw_dealer_cards(dealer_cards, all_cards):
     while sum(dealer_cards) < 17:
         draw_card(dealer_cards, all_cards)
 
+        # Sum cannot exceed 21 because of ace
+        if 11 in dealer_cards and sum(dealer_cards) > 21:
+            dealer_cards.remove(11)
+            dealer_cards.append(1)
+
 
 def score_checker(player_cards, dealer_cards):
     '''Checks for winner/loser/draw'''
-    if sum(player_cards) > 21:
+    if sum(player_cards) > 21 and sum(dealer_cards) > 21:
+        print("Its a draw!")
+
+    elif sum(player_cards) > 21:
         print("You lose!")
 
     elif sum(dealer_cards) > 21:
@@ -112,7 +126,7 @@ def score_checker(player_cards, dealer_cards):
 
 
 def read_art_file():
-    '''Prints BlackJack art to the terminal'''
+    '''Prints Blackjack art to the terminal'''
     # Get the directory of the script
     file_directory = os.path.dirname(__file__)
 
