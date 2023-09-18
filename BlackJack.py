@@ -1,13 +1,13 @@
-import random
-import os
+from random import choice
+from os import system, path
 
 
 def setup():
-    '''Sets up the game'''
+    '''Sets up the game.'''
     ans = input(
         "\nWould you like to play a game of Blackjack? Type 'y' to play, 'n' to exit.\n")
     if ans == "y":
-        os.system("clear")
+        system("clear")
         read_art_file()
         start_game()
         return
@@ -88,7 +88,7 @@ def start_game():
 
 def draw_card(cards_in_hand, all_cards):
     '''Draws and adds card to the hand, while removing the card from all cards'''
-    card = random.choice(all_cards)
+    card = choice(all_cards)
     all_cards.remove(card)
     cards_in_hand.append(card)
 
@@ -126,12 +126,12 @@ def score_checker(player_cards, dealer_cards):
 
 
 def read_art_file():
-    '''Prints Blackjack art to the terminal'''
+    '''Prints Blackjack ASCII art to the terminal'''
     # Get the directory of the script
-    file_directory = os.path.dirname(__file__)
+    file_directory = path.dirname(__file__)
 
     # Combine with the file's name
-    file_path = os.path.join(file_directory, 'art.txt')
+    file_path = path.join(file_directory, 'art.txt')
 
     with open(file_path, "r") as art_file:
         print(art_file.read() + "\n")
