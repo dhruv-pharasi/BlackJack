@@ -21,8 +21,8 @@ def setup():
 
 def start_game():
     '''Main game function, containing the game loop'''
-    # 4 different card types
-    cards = [2, 3, 4, 5, 6, 7, 8, 9, 10, 10, 10, 10, 11] * 4
+    # For 2 players, 13 cards are enough
+    cards = [2, 3, 4, 5, 6, 7, 8, 9, 10, 10, 10, 10, 11]
 
     # Lists to store cards of players
     dealer_cards = []
