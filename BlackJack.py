@@ -12,7 +12,7 @@ def setup():
         start_game()
         return
     elif ans == "n":
-        print("Thank you for playing Blackjack.\n")
+        print("\nThank you for playing Blackjack.\n")
         return
     else:
         print("Invalid input\n")
@@ -57,11 +57,11 @@ def start_game():
             if sum(player_cards) > 21 or sum(dealer_cards) > 21:
 
                 if sum(player_cards) > 21 and sum(dealer_cards) > 21:
-                    print("Your score and dealer's score went over 21!")
+                    print("\nYour score and dealer's score went over 21!\n")
                 elif sum(dealer_cards) > 21:
-                    print("Dealer's score went over 21!")
+                    print("\nDealer's score went over 21!\n")
                 else:
-                    print("Your score went over 21!")
+                    print("\nYour score went over 21!\n")
 
                 print(
                     f"\tYour final cards: {player_cards} | Your final score: {sum(player_cards)}")
@@ -75,7 +75,7 @@ def start_game():
 
             else:
                 print(
-                    f"\tYour cards: {player_cards} | Your current score: {sum(player_cards)}")
+                    f"\n\tYour cards: {player_cards} | Your current score: {sum(player_cards)}")
                 print(f"\tDealer's first card: {dealer_cards[0]}\n")
 
         elif ans == "r":
@@ -114,22 +114,19 @@ def draw_dealer_cards(dealer_cards, all_cards):
 def score_checker(player_cards, dealer_cards):
     '''Checks for winner/loser/draw'''
     if sum(player_cards) > 21 and sum(dealer_cards) > 21:
-        print("Its a draw!")
+        print("\nIts a draw!")
 
     elif sum(player_cards) > 21:
-        print("You lose!")
+        print("\nYou lose!")
 
-    elif sum(dealer_cards) > 21:
-        print("You win!")
-
-    elif sum(player_cards) > sum(dealer_cards):
-        print("You win!")
+    elif sum(dealer_cards) > 21 or sum(player_cards) > sum(dealer_cards):
+        print("\nYou win!")
 
     elif sum(player_cards) < sum(dealer_cards):
-        print("You lose!")
+        print("\nYou lose!")
 
     else:
-        print("Its a draw!")
+        print("\nIts a draw!")
 
 
 def read_art_file():
