@@ -55,7 +55,14 @@ def start_game():
 
             # Sum of either can't exceed 21
             if sum(player_cards) > 21 or sum(dealer_cards) > 21:
-                print("Total score went over 21!")
+
+                if sum(player_cards) > 21 and sum(dealer_cards) > 21:
+                    print("Your score and dealer's score went over 21!")
+                elif sum(dealer_cards) > 21:
+                    print("Dealer's score went over 21!")
+                else:
+                    print("Your score went over 21!")
+
                 print(
                     f"\tYour final cards: {player_cards} | Your final score: {sum(player_cards)}")
                 print(
